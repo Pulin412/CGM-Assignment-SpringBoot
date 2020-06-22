@@ -4,7 +4,9 @@ import com.java.application.answerToEverything.entity.Answer;
 import com.java.application.answerToEverything.entity.Question;
 import com.java.application.answerToEverything.repository.QuestionRepository;
 import com.java.application.answerToEverything.util.AppUtil;
+import com.java.application.answerToEverything.util.Constants;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +34,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
          */
         if(input == null || input.length == 0){
             log.warning("ANSWER-TO-EVERYTHING :::::: Null or empty input.");
-            return "Please enter question..";
+            return Constants.RESPONSE_NULL_INPUT;
         }
 
         int questionIndex = 0;
@@ -46,12 +48,14 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                 - As soon as '?' comes, break the loop and use the created string builder as question.
          */
         for (String word : input) {
-            questionBuilder.append(word).append(" ");
-            if(word.contains("?")){
-                isValidQuestion = true;
-                break;
+            if(!StringUtils.isEmpty(word)){
+                questionBuilder.append(word).append(" ");
+                if(word.contains("?")){
+                    isValidQuestion = true;
+                    break;
+                }
+                questionIndex++;
             }
-            questionIndex++;
         }
         String question = questionBuilder.toString().trim();
         log.info("ANSWER-TO-EVERYTHING :::::: incoming question - " + question);
@@ -77,10 +81,10 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                         fromDbAnswers.forEach(answer -> System.out.println("- " + answer.getAnswer()));
                         return "";
                     }else{
-                        return "No answers saved..";
+                        return Constants.RESPONSE_NO_ANSWERS_IN_DB;
                     }
                 }else{
-                    return "the answer to life, universe and everything is 42";
+                    return Constants.RESPONSE_DEFAULT_ANSWER;
                 }
             }else{
                 /*
@@ -89,7 +93,7 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
                 return addQuestion(input, questionIndex, question);
             }
         }else{
-            throw new IllegalArgumentException("Question is invalid");
+            throw new IllegalArgumentException(Constants.EXCEPTION_MESSAGE_INVALID_QUESTION);
         }
     }
 
@@ -98,10 +102,10 @@ public class QuestionnaireServiceImpl implements IQuestionnaireService {
         Optional<Question> questionInDb = questionRepository.findByQuestion(question);
         if(questionInDb.isPresent()) {
             log.warning("ANSWER-TO-EVERYTHING :::::: Question is already present.");
-            return "Question is already present.";
+            return Constants.RESPONSE_QUESTION_ALREADY_PRESENT;
         }
         Question savedQuestion = questionRepository.save(AppUtil.questionMapper(input, questionIndex, question));
-        return savedQuestion != null ? "question added successfully" : "Issue in saving question, try again!";
+        return savedQuestion != null ? Constants.RESPONSE_QUESTION_SAVE_MESSAGE : "Issue in saving question, try again!";
     }
 
 }

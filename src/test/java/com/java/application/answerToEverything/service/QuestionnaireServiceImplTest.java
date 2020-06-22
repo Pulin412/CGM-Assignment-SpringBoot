@@ -32,7 +32,7 @@ public class QuestionnaireServiceImplTest {
     @Test
     void test_when_validQuestionWithAnswers_then_QuestionAdded(){
         Mockito.when(questionRepository.save(Mockito.any(Question.class))).thenReturn(new Question());
-        Assertions.assertEquals("question added successfully",questionnaireService.evaluateInput(TestUtils.generate_ValidQuestionWithAnswers_Input()));
+        Assertions.assertEquals("Question added successfully",questionnaireService.evaluateInput(TestUtils.generate_ValidQuestionWithAnswers_Input()));
     }
 
     @Test
