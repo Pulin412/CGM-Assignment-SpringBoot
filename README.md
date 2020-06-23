@@ -1,14 +1,12 @@
 ## CGM-Assignment-SpringBoot
-A Java Spring boot based command line program that gives two options. One to ask a specific question and the other option is to add questions and their answers
+A Java Spring boot program that works as a wrapper for the command line utility and can be run as a Spring boot application.
 
 ### About
-- Technologies used : Java, Spring Boot, JPA, JUnit5
-- Database : Embedded File based H2 database
+- Technologies used : Java, Spring Boot
 
 ### Assumptions
 - Spring Boot framework is used assuming future increments to the solution with multiple and complex entities and dependencies. 
-- Interfaces are used for service to allow extendability to the solution, in case some other implementations are proposed in future.
-- Some messages are returned from the solution to be shown on the console, are placed in Constants file, for better visibility and modifications, if needed.
+- Auto configuration is used to add the dependency to the classpath at the start of the application so that no other change is required.
 
 ### Response Messages
 - If the user asks a question which is not stored yet in the program, “the answer to life, universe and everything is 42” is printed.
