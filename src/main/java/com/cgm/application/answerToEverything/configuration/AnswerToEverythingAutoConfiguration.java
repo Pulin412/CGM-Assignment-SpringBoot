@@ -17,7 +17,7 @@ public class AnswerToEverythingAutoConfiguration {
     }
 
     @Bean
-    public IAnswerToEverythingService answerToEverythingService(){
+    public IAnswerToEverythingService answerToEverythingService(IQuestionDAO questionDAO){
         return new AnswerToEverythingService(questionDAO());
     }
 }
