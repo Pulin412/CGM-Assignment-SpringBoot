@@ -1,5 +1,5 @@
 ## CGM-Assignment-SpringBoot
-A Java Spring boot program that works as a wrapper for the command line utility and can be run as a Spring boot application.
+A Java 8, Spring boot program that works as a wrapper for the command line utility and can be run as a Spring boot application.
 
 ### About
 - Technologies used : Java, Spring Boot
